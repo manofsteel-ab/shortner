@@ -33,7 +33,8 @@ def configure_extensions(app):
 def configure_blueprints(app):
     """Register all blueprints with the app"""
     from app.api.users import userBp
-    for bp in [userBp]:
+    from app.api.shortner import urlBp
+    for bp in [userBp, urlBp]:
         app.register_blueprint(bp)
     return app
 
