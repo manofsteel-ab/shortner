@@ -41,4 +41,3 @@ def configure_blueprints(app):
 def configure_error_handlers(app):
     """ Error handler subscribe """
     return app
-
