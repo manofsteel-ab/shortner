@@ -15,7 +15,7 @@ class DevelopmentConfig(Config):
         DB_USER, DB_PASS, DB_HOST, DB_NAME
     )
     DEBUG = True
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 

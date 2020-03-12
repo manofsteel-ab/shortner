@@ -1,7 +1,5 @@
 from datetime import datetime
 from uuid import uuid4
-
-from sqlalchemy import false
 from sqlalchemy.exc import IntegrityError
 
 from app.settings.extensions import db
@@ -23,7 +21,7 @@ class BaseModel:
 
     @classmethod
     def custom_query(cls):
-        return db.session.query(cls).filter(cls.deleteToken != 'NA')
+        return db.session.query(cls).filter(cls.deleteToken == 'NA')
 
     def commit(self):
         try:
@@ -55,11 +53,10 @@ class BaseModel:
             return self
 
     def assign_attributes(self, **kwargs):
-        ignore_columns = ['id', 'created_at', 'updated_at', 'deleted_at']
-        for col_name, value in kwargs.items():
-            if col_name not in ignore_columns:
-                if hasattr(self, col_name) and value is not None:
-                    setattr(self, col_name, value)
+        ignore_columns = ['id', 'createdAt', 'updatedAt', 'deletedAt']
+        for col_name in self.__table__.columns.keys():
+            if col_name not in ignore_columns and kwargs.get(col_name) is not None:
+                setattr(self, col_name, kwargs.get(col_name))
         return self
 
     def delete(self, commit=True):
