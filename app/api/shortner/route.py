@@ -24,3 +24,13 @@ def index():
             'shortUrl': short_url
         }
     )
+
+
+@urlBp.route('/<string:hash_val>/', methods=['GET'])
+def get_original_url(hash_val):
+    long_url = UrlManager().get_original_url(hash_val)
+    return DefaultResponse(
+        data={
+            "longUrl": long_url
+        }
+    )

@@ -1,4 +1,4 @@
-from app.api.manager_imports import Managers
+from app.api.imports import Managers
 from app.api.zoo_keeper.models.seed import Seed
 
 
