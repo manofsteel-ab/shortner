@@ -1,5 +1,4 @@
 from http import HTTPStatus
-
 from jsonschema import ValidationError, SchemaError
 
 from app.settings.configs import app_config, Config
@@ -30,9 +29,10 @@ def configure_app(app, config=None):
 
 
 def configure_extensions(app):
-    from app.settings.extensions import db, migrate
+    from app.settings.extensions import db, migrate, csrf
     db.init_app(app)
     migrate.init_app(app, db)
+    csrf.init_app(app)
     return app
 
 

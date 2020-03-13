@@ -17,6 +17,7 @@ class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = '<$IjAxMGMwMDU1ZmZjODQyMDMwNTNlZmJhY2VjN2I5NDIwNDFmOGIwMTYi.Xms7Sg.dkuOdBrEVqZcOXiROGfpStRkPNc>'
 
 
 class ProductionConfig(Config):

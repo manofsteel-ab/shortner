@@ -1,8 +1,7 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, redirect, render_template, abort
 
 from app.api.shortner.managers.url import UrlManager
-from app.api.shortner.schemas.create_short_url import CreateShortUrlSchema
-from app.commons.utils import validate_request_schema
+from app.api.shortner.schemas.url_form import UrlForm
 from app.settings.custom_response import DefaultResponse
 urlBp = Blueprint('url', __name__, url_prefix='/url/')
 
@@ -12,25 +11,25 @@ def app_health():
     return DefaultResponse(data={})
 
 
-@urlBp.route('/', methods=['POST'])
-@validate_request_schema(schema=CreateShortUrlSchema)
+@urlBp.route('', methods=['POST', 'GET'])
 def index():
-    payload = request.json
-    short_url = UrlManager().get_short_url(
-        long_url=payload.get('longUrl')
-    )
-    return DefaultResponse(
-        data={
-            'shortUrl': short_url
-        }
-    )
+    form = UrlForm(request.form)
+    if request.method == 'POST' and form.validate():
+        long_url = form.originalUrl.data
+        custom_code = form.shortCode.data
+        return render_template('success.html')
+    else:
+        return render_template('index.html', title='Home', form=form)
 
 
 @urlBp.route('/<string:hash_val>/', methods=['GET'])
 def get_original_url(hash_val):
     long_url = UrlManager().get_original_url(hash_val)
-    return DefaultResponse(
-        data={
-            "longUrl": long_url
-        }
-    )
+    if not long_url:
+        abort(404)
+    return redirect(long_url)
+
+
+@urlBp.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html')

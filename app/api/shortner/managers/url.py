@@ -20,8 +20,13 @@ class UrlManager:
         )
         return instance
 
-    def get_short_url(self, long_url):
-        hash_val = self.get_uniquer_hash()
+    def get_short_url(self, long_url, custom_code=""):
+        if custom_code:
+            hash_val = custom_code
+        else:
+            hash_val = self.get_uniquer_hash()
+        if self.model.fetch_by_hash(custom_code).first():
+            pass
         self.create_url_mapping(long_url, hash_val)
         return hash_val
 
@@ -30,10 +35,8 @@ class UrlManager:
         return string_encode(str(seed))
 
     def get_original_url(self, hash_val=""):
-        if not hash_val:
-            raise Exception("Invalid url")
         mapping = self.model.fetch_by_hash(hash_val).first()
-        if not mapping:
-            raise Exception("Invalid url")
-
-        return mapping.longUrl
+        if mapping:
+            mapping.update(hitCount=mapping.hitCount+1, commit=True)
+            return mapping.longUrl
+        return None
