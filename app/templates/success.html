@@ -1,7 +1,13 @@
-{% extends 'base.html' %} {% block title %} Shortened {% endblock %} {% block
-content %}
+{% extends 'base.html' %} {% block title %} Shortened {% endblock %}
+{% block content %}
 
 <div class="content">
   <h2>Your URL was successfully shortened!</h2>
+  <h2>Old Url:  </h2><span>{{oldUrl}}</span>
+  <h2>Shorted Url:  </h2><span>{{shortedUrl}}</span>
+  <form class="form" method="post" action="/url/">
+    <input type="submit" class="btn" value="Back &raquo;" />
+  </form>
+
 </div>
 {% endblock %}

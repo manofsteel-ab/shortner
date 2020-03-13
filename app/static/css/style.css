@@ -20,16 +20,6 @@ body {
   color: #212121;
 }
 
-.container {
-  display: block;
-  width: 900px;
-  margin: 0 auto;
-}
-
-.container h1 a {
-  white-space: nowrap;
-}
-
 .content {
   margin: 0 auto;
   padding: 2rem;
@@ -46,20 +36,95 @@ body {
   padding-bottom: 5px;
 }
 
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.alert h4 {
+  margin-top: 0;
+  color: inherit;
+}
+.alert .alert-link {
+  font-weight: bold;
+}
+.alert > p,
+.alert > ul {
+  margin-bottom: 0;
+}
+.alert > p + p {
+  margin-top: 5px;
+}
+.alert-dismissable,
+.alert-dismissible {
+  padding-right: 35px;
+}
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+.alert-danger .alert-link {
+  color: #843534;
+}
+
+.lead {
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+@media (min-width: 768px) {
+  .lead {
+    font-size: 21px;
+  }
+}
+
+.form-group input {
+  padding: 10px;
+}
+
+.m-t-15 {
+  margin-top: 15px;
+}
+/*  End   */
+
+.container {
+  display: block;
+  width: 900px;
+  margin: 0 auto;
+}
+
+.container h1 a {
+  white-space: nowrap;
+}
+
 .text-center {
   text-align: center;
 }
 
-.input {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
+
 
 .input__url {
   min-width: 0;
   padding: 10px;
+}
+
+.float-right {
+  float: right;
 }
 
 .error {
@@ -148,56 +213,25 @@ input[type="submit"] {
 
 .btn {
   white-space: nowrap;
-  background-color: #4caf50;
+  background-color: #328cc7;
   border: none;
   padding: 5px;
   color: #fafafa;
   border-radius: 0;
 }
 
-/*.btn__copy {*/
-/*  background-color: #007bc6;*/
-/*  width: 5.2rem;*/
-/*  font-size: 1.2rem;*/
-/*  text-align: center;*/
-/*}*/
-
-/*.btn__copied {*/
-/*  font-size: 1.2rem;*/
-/*  width: 5.2rem;*/
-/*  background-color: #4caf50;*/
-/*  text-align: center;*/
-/*}*/
-
-/*.original-link {*/
-/*  background-color: #2a4e2b;*/
-/*  text-align: left;*/
-/*  color: #fafafa;*/
-/*  padding: 0.2rem;*/
-/*  font-weight: 600;*/
-/*  word-wrap: break-word;*/
-/*}*/
-
-/*.original-link img {*/
-/*  margin-bottom: -2px;*/
-/*}*/
 
 .links {
   text-decoration: none;
 }
 
-#list {
-  color: gray;
-  font-weight: bold;
-}
 
 a {
   color: #333;
 }
 
-.m-t-10 {
-  margin-top: 10px;
-}
+
+
 
 @media (max-width: 991px) {
   .container {
