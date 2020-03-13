@@ -36,6 +36,9 @@ body {
   padding-bottom: 5px;
 }
 
+.clickable {
+  cursor: pointer;
+}
 
 .alert {
   padding: 15px;
@@ -43,30 +46,9 @@ body {
   border: 1px solid transparent;
   border-radius: 4px;
 }
-.alert h4 {
-  margin-top: 0;
-  color: inherit;
-}
-.alert .alert-link {
-  font-weight: bold;
-}
-.alert > p,
-.alert > ul {
-  margin-bottom: 0;
-}
-.alert > p + p {
+
+.alert > p {
   margin-top: 5px;
-}
-.alert-dismissable,
-.alert-dismissible {
-  padding-right: 35px;
-}
-.alert-dismissable .close,
-.alert-dismissible .close {
-  position: relative;
-  top: -2px;
-  right: -21px;
-  color: inherit;
 }
 
 .alert-danger {
@@ -74,23 +56,12 @@ body {
   background-color: #f2dede;
   border-color: #ebccd1;
 }
-.alert-danger hr {
-  border-top-color: #e4b9c0;
-}
-.alert-danger .alert-link {
-  color: #843534;
-}
 
 .lead {
   margin-bottom: 20px;
   font-size: 16px;
   font-weight: 300;
   line-height: 1.4;
-}
-@media (min-width: 768px) {
-  .lead {
-    font-size: 21px;
-  }
 }
 
 .form-group input {
@@ -100,7 +71,6 @@ body {
 .m-t-15 {
   margin-top: 15px;
 }
-/*  End   */
 
 .container {
   display: block;
@@ -117,21 +87,6 @@ body {
 }
 
 
-
-.input__url {
-  min-width: 0;
-  padding: 10px;
-}
-
-.float-right {
-  float: right;
-}
-
-.error {
-  color: #eb3e3e;
-  font-weight: 600;
-}
-
 .footer {
   bottom: 5px;
   position: fixed;
@@ -139,62 +94,6 @@ body {
   right: 0;
   text-align: center;
   font-weight: 600;
-}
-
-.footer span {
-  color: transparent;
-  text-shadow: 0 0 0 #333;
-}
-
-table {
-  table-layout: fixed;
-  width: 100%;
-  font-weight: 600;
-}
-
-tr {
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-td {
-  padding-bottom: 5px;
-}
-
-.td-3 {
-  text-align: center;
-}
-
-.th-1 {
-  width: 10%;
-}
-.th-3 {
-  width: 10%;
-}
-
-td img {
-  filter: invert(20%);
-  margin-bottom: -2px;
-}
-
-.old-url {
-  width: 50px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.old-url img {
-  margin-bottom: -2px;
-  opacity: 1;
-}
-
-th {
-  color: #fafafa;
-  background-color: #333;
-  white-space: nowrap;
 }
 
 input {
@@ -218,18 +117,8 @@ input[type="submit"] {
   padding: 5px;
   color: #fafafa;
   border-radius: 0;
+  font-size: 14px;
 }
-
-
-.links {
-  text-decoration: none;
-}
-
-
-a {
-  color: #333;
-}
-
 
 
 
@@ -274,5 +163,11 @@ a {
   .footer {
     padding-top: 15px;
     position: unset;
+  }
+}
+
+@media (min-width: 768px) {
+  .lead {
+    font-size: 21px;
   }
 }

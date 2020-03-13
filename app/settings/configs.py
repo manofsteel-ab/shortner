@@ -19,6 +19,7 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = '<$IjAxMGMwMDU1ZmZjODQyMDMwNTNlZmJhY2VjN2I5NDIwNDFmOGIwMTYi.Xms7Sg.dkuOdBrEVqZcOXiROGfpStRkPNc>'
     SHORT_URL = "http://0.0.0.0:8001/url/{}/"
+    WTF_CSRF_ENABLED = False
 
 
 class ProductionConfig(Config):
