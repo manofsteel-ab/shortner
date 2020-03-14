@@ -10,3 +10,7 @@ class Error:
     SOMETHING_WENT_WRONG = "Something went wrong, please try again."
     DEAD_URL = "The URL seems to be dead at this moment."
     INVALID_CUSTOM_CODE = "Invalid custom code, please try something else."
+
+
+class DateFormat:
+    DEFAULT = "%Y-%m-%d"

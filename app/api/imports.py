@@ -10,11 +10,11 @@ class Managers:
         pass
 
     @property
-    def url(self):
-        from app.api.shortner.managers.shortner import ShortnerManager
-        return ShortnerManager
-
-    @property
-    def zoo_keeper(self):
+    def zoo_keeper_manager(self):
         from app.api.zoo_keeper.managers.zoo_keeper import ZooKeeper
         return ZooKeeper
+
+    @property
+    def daily_counter_manager(self):
+        from app.api.analytics.managers.url_shortening_daily_count import UrlShorteningDailyCountManager
+        return UrlShorteningDailyCountManager
