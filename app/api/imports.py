@@ -11,8 +11,8 @@ class Managers:
 
     @property
     def url(self):
-        from app.api.shortner.managers.url import UrlManager
-        return UrlManager
+        from app.api.shortner.managers.shortner import ShortnerManager
+        return ShortnerManager
 
     @property
     def zoo_keeper(self):

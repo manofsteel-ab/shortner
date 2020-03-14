@@ -1,5 +1,4 @@
 from datetime import datetime
-from uuid import uuid4
 from sqlalchemy.exc import IntegrityError
 
 from app.settings.extensions import db
@@ -7,21 +6,20 @@ from app.settings.extensions import db
 
 class BaseModel:
     id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
-    createdAt = db.Column(
+    created_at = db.Column(
         db.DateTime, default=datetime.utcnow, nullable=False
     )
-    createdBy = db.Column(db.Integer(), nullable=True)
-    updatedAt = db.Column(
+    created_by = db.Column(db.Integer(), nullable=True)
+    updated_at = db.Column(
         db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow,
         nullable=False
     )
-    updatedBy = db.Column(db.Integer(), nullable=True)
-    deletedAt = db.Column(db.DateTime, nullable=True)
-    deleteToken = db.Column(db.String(100), nullable=False, default='NA')
+    updated_by = db.Column(db.Integer(), nullable=True)
+    deleted_at = db.Column(db.DateTime, nullable=True)
 
     @classmethod
     def custom_query(cls):
-        return db.session.query(cls).filter(cls.deleteToken == 'NA')
+        return db.session.query(cls)
 
     def commit(self):
         try:
@@ -60,8 +58,7 @@ class BaseModel:
         return self
 
     def delete(self, commit=True):
-        self.deletedAt = datetime.utcnow()
-        self.deleteToken = str(uuid4())
+        self.deleted_at = datetime.utcnow()
         if commit is True:
             return self.commit()
         else:

@@ -120,6 +120,11 @@ input[type="submit"] {
   font-size: 14px;
 }
 
+.text-success {
+  color: green;
+  font-size: medium;
+}
+
 
 
 @media (max-width: 991px) {

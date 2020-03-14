@@ -1,0 +1,1 @@
+from .models.seed import Seed

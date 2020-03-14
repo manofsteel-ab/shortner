@@ -1,23 +1,23 @@
 from datetime import datetime
 
 from app.api.imports import Managers
-from app.api.shortner.models.url import Url
+from app.api.shortner.models.shortner import Shortner
 from app.commons.utils.constants import Error
 from app.commons.utils.encoder import string_encode
 from flask import current_app
 
 
-class UrlManager:
+class ShortnerManager:
 
     def __init__(self):
         self.Managers = Managers()
-        self.model = Url
+        self.model = Shortner
 
     def create_url_mapping(self, long_url, hash_val):
         instance = self.model.add(
-            longUrl=long_url,
-            urlHash=hash_val,
-            expiresAt=datetime.utcnow(),
+            long_url=long_url,
+            url_hash=hash_val,
+            expires_at=datetime.utcnow(),
             commit=True
         )
         return instance
@@ -39,6 +39,6 @@ class UrlManager:
     def get_original_url(self, hash_val=""):
         mapping = self.model.fetch_by_hash(hash_val).first()
         if mapping:
-            mapping.update(hitCount=mapping.hitCount+1, commit=True)
-            return mapping.longUrl
+            mapping.update(hit_count=mapping.hit_count+1, commit=True)
+            return mapping.long_url
         return None
