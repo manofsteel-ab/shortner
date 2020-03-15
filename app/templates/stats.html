@@ -1,17 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>{{ title }}</title>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
-</head>
-
-<body>
-  <center>
-    <h1>{{ title }}</h1>
-
-    <canvas id="chart" width="600" height="400"></canvas>
-    <script>
+{% extends 'base.html' %} {% block title %} 404 {% endblock %} {% block content %}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+<div class="">
+  <div>
+    <center>
+      <h1>Shortened url count( Daily  basis)</h1>
+      <canvas id="chart" width="600" height="400"></canvas>
+    </center>
+  </div>
+  <div>
+    <center>
+      <h1>Invalid url count( Daily  basis)</h1>
+      <canvas id="chart1" width="600" height="400"></canvas>
+    </center>
+  </div>
+</div>
+<script>
 
       // bar chart data
       var barData = {
@@ -49,6 +52,7 @@
 
       // get bar chart canvas
       var mychart = document.getElementById("chart").getContext("2d");
+      var mychart1 = document.getElementById("chart1").getContext("2d");
 
       steps = 10
       max = {{ max }}
@@ -64,8 +68,17 @@
         scaleShowLabels: true,
         bezierCurve: false,
       });
+      var LineChartDemo1 = new Chart(mychart1).Line(barData, {
+        scaleOverride: true,
+        scaleSteps: steps,
+        scaleStepWidth: Math.ceil(max / steps),
+        scaleStartValue: 0,
+        scaleShowVerticalLines: true,
+        scaleShowGridLines : true,
+        barShowStroke : true,
+        scaleShowLabels: true,
+        bezierCurve: false,
+      });
 
     </script>
-  </center>
-</body>
-</html>
+{% endblock %}
