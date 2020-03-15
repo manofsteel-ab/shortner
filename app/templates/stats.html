@@ -1,23 +1,19 @@
 {% extends 'base.html' %} {% block title %} 404 {% endblock %} {% block content %}
 <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
-<div class="">
-  <div>
-    <center>
-      <h1>Shortened url count( Daily  basis)</h1>
+<div class="analytic-box">
+  <div class="chart">
+     <div class="title">Shortened url count( Daily  basis)</div>
       <canvas id="chart" width="600" height="400"></canvas>
-    </center>
   </div>
-  <div>
-    <center>
-      <h1>Invalid url count( Daily  basis)</h1>
-      <canvas id="chart1" width="600" height="400"></canvas>
-    </center>
+  <div class="chart">
+   <div class="title">Invalid url count( Daily  basis)</div>
+    <canvas id="chart1" width="600" height="400"></canvas>
   </div>
 </div>
 <script>
 
       // bar chart data
-      var barData = {
+      var successData = {
         labels : [
           {% for item in labels %}
             "{{ item }}",
@@ -33,12 +29,32 @@
           pointHighlightStroke: "rgba(151,187,205,1)",
           bezierCurve : false,
           data : [
-	    {% for item in values %}
+	    {% for item in success %}
               {{ item }},
             {% endfor %}]
           }
-	]
-      }
+	]}
+	var failedData = {
+        labels : [
+          {% for item in labels %}
+            "{{ item }}",
+          {% endfor %}
+        ],
+
+        datasets : [{
+          fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          bezierCurve : false,
+          data : [
+	    {% for item in failed %}
+              {{ item }},
+            {% endfor %}]
+          }
+	]}
 
       Chart.defaults.global.animationSteps = 50;
       Chart.defaults.global.tooltipYPadding = 16;
@@ -55,12 +71,13 @@
       var mychart1 = document.getElementById("chart1").getContext("2d");
 
       steps = 10
-      max = {{ max }}
+      success_max = {{ success_max }}
+      failed_max = {{ failed_max }}
       // draw bar chart
-      var LineChartDemo = new Chart(mychart).Line(barData, {
+      var LineChartDemo = new Chart(mychart).Line(successData, {
         scaleOverride: true,
         scaleSteps: steps,
-        scaleStepWidth: Math.ceil(max / steps),
+        scaleStepWidth: Math.ceil(success_max / steps),
         scaleStartValue: 0,
         scaleShowVerticalLines: true,
         scaleShowGridLines : true,
@@ -68,10 +85,10 @@
         scaleShowLabels: true,
         bezierCurve: false,
       });
-      var LineChartDemo1 = new Chart(mychart1).Line(barData, {
+      var LineChartDemo1 = new Chart(mychart1).Line(failedData, {
         scaleOverride: true,
         scaleSteps: steps,
-        scaleStepWidth: Math.ceil(max / steps),
+        scaleStepWidth: Math.ceil(failed_max / steps),
         scaleStartValue: 0,
         scaleShowVerticalLines: true,
         scaleShowGridLines : true,

@@ -10,14 +10,42 @@ html {
 }
 
 body {
-  padding-top: 2rem;
-  background: #007bc6;
-  background: linear-gradient(to top left, #007bc6, #c8e6c9);
+  background: #ffc107;
+  background: linear-gradient(to top left, #ffc107, #c8e6c9);
   background-repeat: no-repeat;
   background-attachment: fixed;
   font-family: "Muli", sans-serif, Arial, Helvetica;
   line-height: 1.6;
   color: #212121;
+}
+
+.navbar {
+  height: 50px;
+  background: black;
+  color: white;
+}
+
+.navbar .main-title {
+  font-size: 20px;
+  padding: 10px 20px;
+  display: inline-block;
+}
+
+.navbar .main-title a {
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+}
+
+.navbar .analytics {
+  float: right;
+  padding: 13px 20px;
+  display: inline-block;
+  cursor: pointer;
+}
+.navbar .analytics a {
+  font-size: 14px;
+  color: white;
 }
 
 .content {
@@ -123,6 +151,24 @@ input[type="submit"] {
 .text-success {
   color: green;
   font-size: medium;
+}
+
+.analytic-box {
+  display: flex;
+  margin-top: 15px;
+}
+
+.analytic-box .chart {
+  margin-left: 6%;
+}
+
+.analytic-box .chart .title {
+  font-size: 20px;
+  color: black;
+}
+
+.analytic-box .chart canvas {
+  background: white;
 }
 
 

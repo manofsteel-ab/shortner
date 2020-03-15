@@ -4,7 +4,8 @@
 
 {% block content %}
 
-<div class="content">
+<div class="container">
+	<div class="content">
     {# Start message part. This part wil be triggered only when there is some messages to show.#}
             {%with messages = get_flashed_messages()%}
             	{% if messages %}
@@ -43,5 +44,7 @@
 		{# End short URL part.#}
 	</div>
 </div>
+</div>
+
 
 {% endblock %}

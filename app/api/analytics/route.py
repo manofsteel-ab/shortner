@@ -11,17 +11,21 @@ def app_health():
 
 
 @analyticBp.route('/shorten_count/', methods=['GET'])
-def shorten_count():
+def report():
     counts = UrlShorteningDailyCountManager().get_shorten_count_result()
     labels = counts.get('labels', [])
     success_counts = counts.get('success_counts', [])
     failed_count = counts.get('failed_counts', [])
-    y_limit = 1000
+    success_max = 100
+    failed_max = 100
     if success_counts:
-        y_limit += max(success_counts)
+        success_max += max(success_counts)
+    if failed_count:
+        failed_max += max(failed_count)
     return render_template(
         'stats.html',
         title='Shortening Count(Daily basis)',
-        max=y_limit, labels=labels,
-        values=success_counts
+        success_max=success_max, failed_max=failed_max, labels=labels,
+        success=success_counts,
+        failed=failed_count,
     )
