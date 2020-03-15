@@ -14,3 +14,4 @@ class Error:
 
 class DateFormat:
     DEFAULT = "%Y-%m-%d"
+    DEFAULT_FOR_LABEL = "%d-%B-%y"

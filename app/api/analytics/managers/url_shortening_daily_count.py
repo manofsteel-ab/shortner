@@ -31,3 +31,17 @@ class UrlShorteningDailyCountManager:
                 commit=True
             )
         return current_count
+
+    def get_shorten_count_result(self):
+        all_count = self.model.custom_query().all()
+        response = {
+            'labels': [],
+            'success_counts': [],
+            'failed_counts': []
+        }
+        for count in all_count:
+            dt_str = count.date.strftime(DateFormat.DEFAULT_FOR_LABEL)
+            response['labels'].append(dt_str)
+            response['success_counts'].append(count.success_count)
+            response['failed_counts'].append(count.failed_count)
+        return response
