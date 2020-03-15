@@ -20,6 +20,7 @@ class DevelopmentConfig(Config):
     SECRET_KEY = '<$IjAxMGMwMDU1ZmZjODQyMDMwNTNlZmJhY2VjN2I5NDIwNDFmOGIwMTYi.Xms7Sg.dkuOdBrEVqZcOXiROGfpStRkPNc>'
     SHORT_URL = "http://0.0.0.0:8001/api/shortner/{}/"
     WTF_CSRF_ENABLED = False
+    BCRYPT_ROUNDS = 1
 
 
 class ProductionConfig(Config):

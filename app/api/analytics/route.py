@@ -10,7 +10,7 @@ def app_health():
     return DefaultResponse(data={})
 
 
-@analyticBp.route('/shorten_count/', methods=['GET'])
+@analyticBp.route('', methods=['GET'])
 def report():
     counts = UrlShorteningDailyCountManager().get_shorten_count_result()
     labels = counts.get('labels', [])
