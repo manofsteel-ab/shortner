@@ -1,5 +1,11 @@
 {% extends 'base.html' %} {% block title %} 404 {% endblock %} {% block content %}
 <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+<div class="navbar">
+      <div class="main-title">  <a href="{{url_for('shortner.index')}}">Shortner</a></div>
+      <div class="analytics">
+           <a href="{{url_for('analytics.report')}}">Refresh</a>
+      </div>
+  </div>
 <div class="analytic-box">
   <div class="chart">
      <div class="title">Shortened url count( Daily  basis)</div>

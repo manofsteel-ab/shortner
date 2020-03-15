@@ -3,7 +3,12 @@
 {% block title %} Url Shortner {% endblock %}
 
 {% block content %}
-
+<div class="navbar">
+      <div class="main-title">  <a href="{{url_for('shortner.index')}}">Shortner</a></div>
+      <div class="analytics">
+           <a href="{{url_for('analytics.report')}}">Analytics</a>
+      </div>
+</div>
 <div class="container">
 	<div class="content">
     {# Start message part. This part wil be triggered only when there is some messages to show.#}
