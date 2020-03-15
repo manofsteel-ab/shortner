@@ -53,6 +53,7 @@ def configure_error_handlers(app):
     def handle_unknown_exception(e):
         return DefaultResponse({}, str(e), HTTPStatus.INTERNAL_SERVER_ERROR)
 
+    app.register_error_handler(Exception, handle_unknown_exception)
     app.register_error_handler(
         ValidationError, lambda err: DefaultResponse(
             {'error': str(err)}, 'Invalid request body', HTTPStatus.BAD_REQUEST

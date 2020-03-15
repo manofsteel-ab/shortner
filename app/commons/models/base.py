@@ -67,3 +67,31 @@ class BaseModel:
     def add_to_session(self):
         db.session.add(self)
 
+    def to_dict(self):
+        """
+        Dictionary representation of the object.
+        By default all the columns are read, these can be extended by,
+        setting an attribute `hybrid_properties` in the model and also can be
+        filtered for sensitive fields using `hidden_fields`
+        """
+        data = dict()
+        hidden_fields = []
+        fields = self.__table__.columns.keys()
+
+        if hasattr(self, 'hidden_fields'):
+            hidden_fields = self.hidden_fields
+
+        if hasattr(self, 'hybrid_properties'):
+            fields += self.hybrid_properties
+
+        for field in fields:
+            if field not in hidden_fields:
+                if hasattr(self, field):
+                    data[field] = getattr(self, field)
+                    if type(data[field]) == datetime:
+                        data[field] = str(data[field])
+                    elif isinstance(data[field], BaseModel):
+                        data[field] = data[field].to_dict()
+        return data
+
+

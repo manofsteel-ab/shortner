@@ -10,3 +10,4 @@ Flask-WTF
 pandas==1.0.1
 matplotlib==3.2.0
 Flask-Bcrypt==0.7.1
+Flask-Login==0.5.0

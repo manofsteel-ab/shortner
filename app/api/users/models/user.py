@@ -1,6 +1,7 @@
 from flask import current_app
 from werkzeug.security import gen_salt
 
+from app.api.users.models import UserRole
 from app.commons.models.base import BaseModel
 from app.settings.extensions import db, bcrypt
 
@@ -18,6 +19,8 @@ class User(db.Model, BaseModel):
     password = db.Column(db.String(100), nullable=False)
     delete_token = db.Column(db.String(100), nullable=False, default='NA')
 
+    roles = db.relationship('UserRole', backref='users')
+
     __table_args__ = (
         db.UniqueConstraint(
             'username', 'delete_token',
@@ -31,8 +34,6 @@ class User(db.Model, BaseModel):
     @classmethod
     def add(cls, data, commit=True):
         user = cls()
-        user.created_by = ""
-        user.updated_by = ""
         for col_name in user.__table__.columns.keys():
             if col_name not in [
                 'id', 'deleted', 'created_at', 'updated_at', 'deleted_at'
@@ -41,14 +42,18 @@ class User(db.Model, BaseModel):
                     secret = gen_salt(50)
                     user.secret = secret
                     user.password = cls.generate_password(data[col_name], secret)
+                elif col_name == 'roles' and data[col_name]:
+                    for role in data[col_name]:
+                        UserRole.add(user=user, role_id=role, commit=False)
                 elif col_name in data and data[col_name] is not None:
                     setattr(user, col_name, data[col_name])
 
-        if commit is True:
-            return user.commit()
-        else:
-            db.session.add(user)
-            return user
+        db.session.add(user)
+
+        if commit:
+            user.commit()
+
+        return user
 
     @classmethod
     def generate_password(cls, password, salt):
@@ -61,3 +66,7 @@ class User(db.Model, BaseModel):
         """ Validate a candidate password with actual password """
         candidate_salt = candidate + self.secret
         return bcrypt.check_password_hash(self.password, candidate_salt)
+
+    @classmethod
+    def fetch_by_username(cls, username):
+        return cls.custom_query().filter(cls.username == username)

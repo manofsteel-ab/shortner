@@ -10,3 +10,4 @@ Flask-WTF
 pandas
 matplotlib
 Flask-Bcrypt
+Flask-Login

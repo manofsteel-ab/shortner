@@ -15,3 +15,9 @@ class Error:
 class DateFormat:
     DEFAULT = "%Y-%m-%d"
     DEFAULT_FOR_LABEL = "%d-%B-%y"
+
+
+class UserType:
+    SYSTEM = 'system'
+    NON_SYSTEM = 'non_system'
+    ALL = [SYSTEM, NON_SYSTEM]

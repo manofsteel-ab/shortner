@@ -18,3 +18,8 @@ class Managers:
     def daily_counter_manager(self):
         from app.api.analytics.managers.url_shortening_daily_count import UrlShorteningDailyCountManager
         return UrlShorteningDailyCountManager
+
+    @property
+    def user_role_manager(self):
+        from app.api.users.managers.user_role import UserRoleManager
+        return UserRoleManager
