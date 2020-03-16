@@ -29,10 +29,13 @@ def configure_app(app, config=None):
 
 
 def configure_extensions(app):
-    from app.settings.extensions import db, migrate, csrf
+    from app.settings.extensions import db, migrate, csrf, login_manager
     db.init_app(app)
     migrate.init_app(app, db)
     csrf.init_app(app)
+    # session.init_app(app)
+    login_manager.init_app(app)
+    login_manager.login_view = 'users.login'
     return app
 
 

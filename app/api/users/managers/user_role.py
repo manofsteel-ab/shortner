@@ -24,3 +24,6 @@ class UserRoleManager:
         if commit:
             user_role.commit()
         return user_role
+
+    def fetch_roles(self, user_id):
+        return self.model.fetch_by_user_id(user_id).all()

@@ -1,5 +1,6 @@
 from app.api.imports import Managers
 from app.api.users import User
+from app.commons.utils.constants import UserType
 
 
 class UserManager:
@@ -30,3 +31,14 @@ class UserManager:
             return users[-1]
         else:
             raise Exception("Invalid password")
+
+    def fetch_user(self, user_id):
+        return self.model.fetch_by_user_id(user_id=user_id).first()
+
+    def fetch_user_default_page(self, user_id):
+        roles = self.manager.user_role_manager().fetch_roles(user_id=user_id)
+        roles = [val.role_id for val in roles]
+        if UserType.SYSTEM in roles:
+            return "analytics.report"
+        if UserType.NON_SYSTEM in roles:
+            return "shortner.index"

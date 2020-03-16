@@ -1,12 +1,13 @@
 from flask import current_app
+from flask_login import UserMixin
 from werkzeug.security import gen_salt
 
 from app.api.users.models import UserRole
 from app.commons.models.base import BaseModel
-from app.settings.extensions import db, bcrypt
+from app.settings.extensions import db, bcrypt, login_manager
 
 
-class User(db.Model, BaseModel):
+class User(db.Model, BaseModel, UserMixin):
     __tablename__ = 'users'
     first_name = db.Column(db.String(50), nullable=True)
     middle_name = db.Column(db.String(50), nullable=True)
@@ -30,6 +31,21 @@ class User(db.Model, BaseModel):
             'email', 'delete_token', name='uq_users_email_delete_token'
         ),
     )
+
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return self.id
+
+    def __repr__(self):
+        return '<User %r>' % self.username
 
     @classmethod
     def add(cls, data, commit=True):
@@ -70,3 +86,7 @@ class User(db.Model, BaseModel):
     @classmethod
     def fetch_by_username(cls, username):
         return cls.custom_query().filter(cls.username == username)
+
+    @classmethod
+    def fetch_by_user_id(cls, user_id):
+        return cls.custom_query().filter(cls.id == user_id)

@@ -10,11 +10,6 @@ RegisterUserSchema = {
         'last_name': {'type': 'string', 'minLength': 4, 'maxLength': 14},
         "email": {'type': "string", 'format': 'email'},
         'primary_phone': {'type': 'string', 'minLength': 10, 'maxLength': 20},
-        'user_roles': {
-            'type': 'array',
-            'minItems': 1,
-            'items': {'type': 'string', "enum": UserType.ALL}
-        },
     },
-    'required': ['username', 'password', 'user_roles', 'email']
+    'required': ['username', 'password', 'email']
 }

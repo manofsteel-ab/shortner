@@ -19,7 +19,7 @@
             	{% endif %}
             {% endwith %}
             {# End message part.#}
-     <form class="lead" action="{{url_for('shortner.index')}}" method="POST" accept-charset="utf-8">
+     <form class="lead" action="" method="POST" accept-charset="utf-8">
 		 {{ form.hidden_tag() }}
 		 <div class="form-group {% if form.username.errors %} has-error {% endif %}">
 			 {{ form.username(placeholder="please enter your username", class="form-control") }}

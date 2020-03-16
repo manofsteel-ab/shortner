@@ -10,3 +10,7 @@ class UserRole(db.Model, BaseModel):
         db.Integer, db.ForeignKey('users.id'), nullable=False
     )
     user = db.relationship('User')
+
+    @classmethod
+    def fetch_by_user_id(cls, user_id):
+        return cls.custom_query().filter(cls.user_id == user_id)

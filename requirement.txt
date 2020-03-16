@@ -11,3 +11,4 @@ pandas
 matplotlib
 Flask-Bcrypt
 Flask-Login
+Flask-Session

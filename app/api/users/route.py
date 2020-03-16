@@ -1,10 +1,14 @@
-from flask import Blueprint, request, redirect, url_for, render_template
+from flask import Blueprint, request, redirect, url_for, render_template, session, flash, current_app
+from flask_login import login_user, logout_user, login_required
 from app.api.users.managers.user import UserManager
 from app.api.users.schemas.login_form import LoginForm
 from app.api.users.schemas.register_user_schema import RegisterUserSchema
 from app.commons.utils import validate_request_schema
+from app.commons.utils.constants import UserType
 from app.settings.custom_response import DefaultResponse
-userBp = Blueprint('users', __name__, url_prefix='/api/users/')
+from app.settings.extensions import login_manager
+
+userBp = Blueprint('users', __name__, url_prefix='/users/')
 
 
 @userBp.route('health/', methods=['GET'])
@@ -16,9 +20,52 @@ def app_health():
 @validate_request_schema(schema=RegisterUserSchema)
 def register_user():
     payload = request.json
-    r = UserManager().register_user(user_attributes=payload).to_dict()
+    payload['user_roles'] = [UserType.NON_SYSTEM]
+    UserManager().register_user(user_attributes=payload)
     return DefaultResponse(
-        data=r, status=201, message='created'
+        data={
+            'username': payload.get('username'),
+            'password': payload.get('password')
+        }, status=201, message='created'
+    )
+
+
+@userBp.route('/create_demo_user/', methods=['POST', 'GET'])
+def register_demo_user():
+    payload = {
+        "username": "test_demo_user",
+        "password": "test_demo_user",
+        "email": "test_demo_user@mailinator.com",
+        "user_roles": ["non_system"]
+    }
+    UserManager().register_user(user_attributes=payload)
+    return DefaultResponse(
+        data={
+            'username': payload.get('username'),
+            'password': payload.get('password')
+        }, status=201, message='created'
+    )
+
+
+@userBp.route('/create_admin_user/<string:secret_key>', methods=['POST', 'GET'])
+def register_admin_user(secret_key):
+    if not secret_key or secret_key != current_app.config['SECRET_KEY']:
+        raise Exception("Permission denied")
+    payload = {
+        "username": "test_admin_user",
+        "password": "test_admin_user",
+        "email": "test_admin_user@mailinator.com",
+        "user_roles": ["system"]
+    }
+    try:
+        UserManager().register_user(user_attributes=payload)
+    except Exception as e:
+        print(str(e))
+    return DefaultResponse(
+        data={
+            'username': payload.get('username'),
+            'password': payload.get('password')
+        }, status=201, message='created'
     )
 
 
@@ -31,8 +78,23 @@ def login():
                 username=form.username.data,
                 password=form.password.data
             )
-            print(user)
-            # login_user(user)
+            next_page = UserManager().fetch_user_default_page(user_id=user.id)
+            login_user(user)
+            return redirect(url_for(next_page))
         except Exception as e:
-            print(e)
+            flash(str(e))
+            return render_template('login.html', form=form)
     return render_template('login.html', form=LoginForm())
+
+
+@userBp.route("/logout/")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("users.login"))
+
+
+# callback to reload the user object
+@login_manager.user_loader
+def load_user(user_id):
+    return UserManager().fetch_user(user_id=user_id)

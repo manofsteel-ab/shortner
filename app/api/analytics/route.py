@@ -1,8 +1,9 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, abort
+from flask_login import login_user, logout_user, current_user, login_required
 
 from app.api.analytics.managers.url_shortening_daily_count import UrlShorteningDailyCountManager
 from app.settings.custom_response import DefaultResponse
-analyticBp = Blueprint('analytics', __name__, url_prefix='/api/analytics/')
+analyticBp = Blueprint('analytics', __name__, url_prefix='/analytics/')
 
 
 @analyticBp.route('health/', methods=['GET'])
@@ -11,7 +12,10 @@ def app_health():
 
 
 @analyticBp.route('', methods=['GET'])
+@login_required
 def report():
+    if not UrlShorteningDailyCountManager().validate_access(current_user.id):
+        abort(401)
     counts = UrlShorteningDailyCountManager().get_shorten_count_result()
     labels = counts.get('labels', [])
     success_counts = counts.get('success_counts', [])
@@ -29,3 +33,13 @@ def report():
         success=success_counts,
         failed=failed_count,
     )
+
+
+@analyticBp.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html')
+
+
+@analyticBp.errorhandler(401)
+def page_not_found(e):
+    return render_template('401.html')

@@ -5,6 +5,9 @@
 {% block content %}
 <div class="navbar">
       <div class="main-title">  <a href="{{url_for('shortner.index')}}">Shortner</a></div>
+	<div class="analytics">
+           <a href="{{url_for('users.logout')}}">Logout</a>
+      </div>
       <div class="analytics">
            <a href="{{url_for('analytics.report')}}">Analytics</a>
       </div>
