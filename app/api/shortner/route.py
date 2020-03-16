@@ -30,7 +30,7 @@ def index():
         return render_template('index.html', form=ShortnerForm(), username=current_user.username or "Anonymous")
 
 
-@shortnerBP.route('/<string:hash_val>/', methods=['GET'])
+@shortnerBP.route('/<string:hash_val>/', methods=['GET', 'POST'])
 def get_original_url(hash_val):
     long_url = ShortnerManager().get_original_url(hash_val)
     if not long_url:
