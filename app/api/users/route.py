@@ -1,5 +1,5 @@
 from flask import Blueprint, request, redirect, url_for, render_template, flash, current_app
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from app.api.users.managers.user import UserManager
 from app.api.users.schemas.login_form import LoginForm
 from app.api.users.schemas.registration_form import RegistrationForm
@@ -95,6 +95,20 @@ def login():
             flash(str(e))
             return render_template('login.html', form=form)
     return render_template('login.html', form=LoginForm())
+
+
+@userBp.route("/profile/",  methods=['GET', 'POST'])
+@login_required
+def profile():
+    return render_template(
+        'profile.html',
+        username=current_user.username, email=current_user.email,
+        mobile=current_user.primary_phone or 'Not available',
+        first_name=current_user.first_name or 'Not available',
+        middle_name=current_user.middle_name or '',
+        last_name=current_user.last_name or ''
+
+    )
 
 
 @userBp.route("/logout/")

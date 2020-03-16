@@ -1,5 +1,5 @@
 from flask import Blueprint, request, redirect, render_template, abort, flash
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.api.shortner.managers.shortner import ShortnerManager
 from app.api.shortner.schemas.url_form import ShortnerForm
 from app.settings.custom_response import DefaultResponse
@@ -20,12 +20,14 @@ def index():
         custom_code = form.custom_code.data
         try:
             short_url = ShortnerManager().get_short_url(long_url, custom_code)
-            return render_template('index.html', form=form, short_url=short_url)
+            return render_template(
+                'index.html', form=form, short_url=short_url, username=current_user.username or "Anonymous"
+            )
         except Exception as e:
             flash(str(e))
-            return render_template('index.html', form=form)
+            return render_template('index.html', form=form, username=current_user.username or "Anonymous")
     else:
-        return render_template('index.html', form=ShortnerForm())
+        return render_template('index.html', form=ShortnerForm(), username=current_user.username or "Anonymous")
 
 
 @shortnerBP.route('/<string:hash_val>/', methods=['GET'])

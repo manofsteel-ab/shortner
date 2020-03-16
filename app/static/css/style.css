@@ -20,15 +20,20 @@ body {
 }
 
 .navbar {
-  height: 50px;
+  height: 51px;
   background: black;
   color: white;
 }
 
 .navbar .main-title {
-  font-size: 20px;
-  padding: 10px 20px;
+  font-size: 16px;
+  padding: 13px 20px;
   display: inline-block;
+  background: gray;
+}
+
+.navbar .main-title:hover {
+  background: darkgrey;
 }
 
 .navbar .main-title a {
@@ -39,13 +44,26 @@ body {
 
 .navbar .analytics {
   float: right;
-  padding: 13px 20px;
+  padding: 5px 13px;
+  margin: 2px;
+  margin-top: 8px;
   display: inline-block;
   cursor: pointer;
+  background: gray;
+  border-radius: 10px;
 }
+
+.navbar .analytics:hover {
+  background: darkgrey;
+}
+
 .navbar .analytics a {
   font-size: 14px;
   color: white;
+}
+
+navbar .analytics .user-info {
+  background: gray;
 }
 
 .content {
@@ -126,6 +144,17 @@ body {
   float: right;
 }
 
+.profile {
+  font-style: oblique;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.profile-subtitle {
+  padding-left: 10px;
+  font-style: oblique;
+}
+
 
 .footer {
   bottom: 5px;
@@ -185,6 +214,7 @@ input[type="submit"] {
 
 
 
+
 @media (max-width: 991px) {
   .container, .login-container, .registration-container {
     width: 80%;
@@ -193,11 +223,19 @@ input[type="submit"] {
   .th-1 {
     width: 20%;
   }
+  .navbar .analytics {
+    padding: 13px 13px;
+    margin: 2px;
+  }
 }
 
 @media (max-width: 550px) {
   .content h2, .login-container h2, .registration-container h2 {
     font-size: 1.25rem;
+  }
+  .navbar .analytics {
+    padding: 13px 13px;
+    margin: 2px;
   }
 }
 
@@ -219,6 +257,12 @@ input[type="submit"] {
 
   .th-1 {
     width: 25%;
+  }
+  .navbar .analytics {
+    padding: 13px 5px;
+  }
+  .navbar .main-title {
+    padding: 13px 4px;
   }
 }
 

@@ -49,7 +49,6 @@ class UrlShorteningDailyCountManager:
     def validate_access(self, user_id):
         roles = self.manager.user_role_manager().fetch_roles(user_id=user_id)
         roles = [val.role_id for val in roles]
-        print(roles)
         if UserType.SYSTEM in roles:
             return True
         return False

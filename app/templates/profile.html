@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% block title %} 404 {% endblock %} {% block content %}
+<div class="navbar">
+    <div class="main-title">  <a href="{{url_for('shortner.index')}}">Shortner</a></div>
+    <div class="analytics"><a href="{{url_for('users.logout')}}">Logout</a></div>
+    <div class="analytics"><a href="{{url_for('analytics.report')}}">Analytics</a></div>
+</div>
+<div class="registration-container">
+    <div class="content">
+        <h3 class="profile-subtitle">Profile</h3>
+        <div><span class="profile"> Username: </span> <span class="profile-subtitle">{{username}}</span></div>
+        <div><span class="profile"> email: </span> <span class="profile-subtitle">{{email}}</span></div>
+        <div><span class="profile"> Mob.: </span> <span class="profile-subtitle">{{mobile}}</span></div>
+        <div><span class="profile"> Name: </span> <span class="profile-subtitle">{{first_name}} {{middle_name}} {{last_name}}</span></div>
+    </div>
+</div>
+
+
+{% endblock %}

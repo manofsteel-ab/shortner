@@ -28,10 +28,11 @@ def report():
         failed_max += max(failed_count)
     return render_template(
         'stats.html',
-        title='Shortening Count(Daily basis)',
-        success_max=success_max, failed_max=failed_max, labels=labels,
+        success_max=success_max,
+        failed_max=failed_max, labels=labels,
         success=success_counts,
         failed=failed_count,
+        username=current_user.username or "Anonymous"
     )
 
 
