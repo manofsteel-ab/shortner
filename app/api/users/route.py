@@ -1,14 +1,13 @@
-from flask import Blueprint, request, redirect, url_for, render_template, session, flash, current_app
+from flask import Blueprint, request, redirect, url_for, render_template, flash, current_app
 from flask_login import login_user, logout_user, login_required
 from app.api.users.managers.user import UserManager
 from app.api.users.schemas.login_form import LoginForm
-from app.api.users.schemas.register_user_schema import RegisterUserSchema
-from app.commons.utils import validate_request_schema
+from app.api.users.schemas.registration_form import RegistrationForm
 from app.commons.utils.constants import UserType
 from app.settings.custom_response import DefaultResponse
 from app.settings.extensions import login_manager
 
-userBp = Blueprint('users', __name__, url_prefix='/users/')
+userBp = Blueprint('users', __name__, url_prefix='/users')
 
 
 @userBp.route('health/', methods=['GET'])
@@ -16,18 +15,29 @@ def app_health():
     return DefaultResponse(data={})
 
 
-@userBp.route('', methods=['POST'])
-@validate_request_schema(schema=RegisterUserSchema)
-def register_user():
-    payload = request.json
-    payload['user_roles'] = [UserType.NON_SYSTEM]
-    UserManager().register_user(user_attributes=payload)
-    return DefaultResponse(
-        data={
-            'username': payload.get('username'),
-            'password': payload.get('password')
-        }, status=201, message='created'
-    )
+@userBp.route('/register/', methods=['POST', 'GET'])
+def register():
+    form = RegistrationForm(request.form)
+    if form.validate_on_submit():
+        try:
+            data = {
+                "username": form.username.data,
+                "password": form.password.data,
+                "email": form.email.data,
+                "primary_phone": form.primary_phone.data,
+                "first_name": form.first_name.data,
+                "middle_name": form.middle_name.data,
+                "last_name": form.last_name.data,
+                'user_roles': [UserType.NON_SYSTEM]
+            }
+            user = UserManager().register_user(user_attributes=data)
+            next_page = UserManager().fetch_user_default_page(user_id=user.id)
+            login_user(user)
+            return redirect(url_for(next_page))
+        except Exception as e:
+            flash(str(e))
+            return render_template('registration.html', form=form)
+    return render_template('registration.html', form=RegistrationForm())
 
 
 @userBp.route('/create_demo_user/', methods=['POST', 'GET'])
@@ -47,7 +57,7 @@ def register_demo_user():
     )
 
 
-@userBp.route('/create_admin_user/<string:secret_key>', methods=['POST', 'GET'])
+@userBp.route('/create_admin_user/<string:secret_key>/', methods=['POST', 'GET'])
 def register_admin_user(secret_key):
     if not secret_key or secret_key != current_app.config['SECRET_KEY']:
         raise Exception("Permission denied")

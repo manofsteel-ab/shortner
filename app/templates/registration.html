@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %} Url Shortner {% endblock %}
+
+{% block content %}
+<div class="navbar">
+      <div class="main-title">Shortner</div>
+</div>
+<div class="registration-container">
+	<div class="content">
+    {# Start message part. This part wil be triggered only when there is some messages to show.#}
+            {%with messages = get_flashed_messages()%}
+            	{% if messages %}
+            		{% for message in messages %}
+		            	<div class="alert alert-danger" role="alert">
+		  					<p><strong> Warning!</strong> {{message}}</p>
+						</div>
+					{% endfor %}
+            	{% endif %}
+            {% endwith %}
+            {# End message part.#}
+     <form class="lead" action="" method="POST" accept-charset="utf-8">
+		 {{ form.hidden_tag() }}
+		 <div class="form-group {% if form.username.errors %} has-error {% endif %}">
+			 {{ form.username(placeholder="please enter your username*", class="form-control") }}
+		 </div>
+		 <div class="form-group m-t-15 {% if form.password.errors %} has-error {% endif %}">
+			 {{ form.password(placeholder="please enter your password*", class="form-control") }}
+		 </div>
+         <div class="form-group m-t-15 {% if form.first_name.errors %} has-error {% endif %}">
+			 {{ form.first_name(placeholder="first name", class="form-control") }}
+		 </div>
+         <div class="form-group m-t-15 {% if form.middle_name.errors %} has-error {% endif %}">
+			 {{ form.middle_name(placeholder="middle", class="form-control") }}
+		 </div>
+         <div class="form-group m-t-15 {% if form.last_name.errors %} has-error {% endif %}">
+			 {{ form.last_name(placeholder="last name", class="form-control") }}
+		 </div>
+          <div class="form-group m-t-15 {% if form.email.errors %} has-error {% endif %}">
+			 {{ form.email(placeholder="email*", class="form-control") }}
+		 </div>
+          <div class="form-group m-t-15 {% if form.primary_phone.errors %} has-error {% endif %}">
+			 {{ form.primary_phone(placeholder="Mob.", class="form-control") }}
+		 </div>
+		 <p class="lead m-t-15">
+			 <input type="submit" name="submit" value="Register" class="btn btn-lg btn-default clickable">
+		 </p>
+	 </form>
+		<div class="pull-right">
+			<span class="text-success"><a href={{url_for('users.login')}}>Login</a></span>
+		</div>
+</div>
+</div>
+{% endblock %}

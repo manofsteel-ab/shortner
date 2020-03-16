@@ -8,15 +8,13 @@ class UserRoleManager:
         self.manager = Managers()  # import class instance of manager
         self.model = UserRole  # model associated with current manager
 
-    def create_user_role(self, user=None, user_id=None, role=None, commit=True):
+    def create_user_role(self, user_id=None, role=None, commit=True):
         in_validation = [
-            not user and not user_id,
-            not role
+            not user_id, not role
         ]
         if any(in_validation):
             raise Exception("Invalid request")
         user_role = self.model.add(
-            user=user,
             user_id=user_id,
             role_id=role,
             commit=False

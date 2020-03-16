@@ -2,17 +2,20 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
 <div class="navbar">
       <div class="main-title">  <a href="{{url_for('shortner.index')}}">Shortner</a></div>
+    <div class="analytics">
+           <a href="{{url_for('users.logout')}}">Logout</a>
+      </div>
       <div class="analytics">
            <a href="{{url_for('analytics.report')}}">Refresh</a>
       </div>
   </div>
 <div class="analytic-box">
   <div class="chart">
-     <div class="title">Shortened url count( Daily  basis)</div>
+     <div class="title">Daily count - Successfully shortend</div>
       <canvas id="chart" width="600" height="400"></canvas>
   </div>
   <div class="chart">
-   <div class="title">Invalid url count( Daily  basis)</div>
+   <div class="title">Daily Count - Failed to short</div>
     <canvas id="chart1" width="600" height="400"></canvas>
   </div>
 </div>

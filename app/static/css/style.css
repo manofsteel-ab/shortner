@@ -100,18 +100,30 @@ body {
   margin-top: 15px;
 }
 
-.container {
+.container, .login-container, .registration-container {
   display: block;
-  width: 900px;
-  margin: 0 auto;
+  width: 60%;
+  margin: 90px auto;
 }
 
-.container h1 a {
+.login-container {
+   width: 400px;
+}
+.registration-container {
+  width: 500px;
+  max-height: 70%;
+}
+
+.container h1 a ,.login-container h1 a, .registration-container h1 a{
   white-space: nowrap;
 }
 
 .text-center {
   text-align: center;
+}
+
+.pull-right {
+  float: right;
 }
 
 
@@ -155,7 +167,7 @@ input[type="submit"] {
 
 .analytic-box {
   display: flex;
-  margin-top: 15px;
+  margin-top: 30px;
 }
 
 .analytic-box .chart {
@@ -174,7 +186,7 @@ input[type="submit"] {
 
 
 @media (max-width: 991px) {
-  .container {
+  .container, .login-container, .registration-container {
     width: 80%;
   }
 
@@ -184,16 +196,16 @@ input[type="submit"] {
 }
 
 @media (max-width: 550px) {
-  .content h2 {
+  .content h2, .login-container h2, .registration-container h2 {
     font-size: 1.25rem;
   }
 }
 
 @media (max-width: 475px) {
-  .container {
+  .container .login-container, .registration-container {
     width: 95%;
   }
-  .container h1 {
+  .container h1, .login-container h1, .registration-container h1 {
     font-size: 1.5rem;
   }
 

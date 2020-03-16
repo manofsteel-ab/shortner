@@ -6,7 +6,7 @@
 <div class="navbar">
       <div class="main-title">Shortner</div>
 </div>
-<div class="container">
+<div class="login-container">
 	<div class="content">
     {# Start message part. This part wil be triggered only when there is some messages to show.#}
             {%with messages = get_flashed_messages()%}
@@ -31,6 +31,9 @@
 			 <input type="submit" name="submit" value="Login" class="btn btn-lg btn-default clickable">
 		 </p>
 	 </form>
+		<div class="pull-right">
+			<span class="text-success"><a href={{url_for('users.register')}}>Register</a></span>
+		</div>
 </div>
 </div>
 {% endblock %}
