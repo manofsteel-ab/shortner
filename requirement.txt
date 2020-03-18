@@ -12,3 +12,4 @@ matplotlib
 Flask-Bcrypt
 Flask-Login
 Flask-Session
+redis
