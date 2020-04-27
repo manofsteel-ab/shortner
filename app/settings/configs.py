@@ -21,8 +21,10 @@ class DevelopmentConfig(Config):
     SHORT_URL = "http://0.0.0.0:8001/shortner/{}/"
     BCRYPT_ROUNDS = 4
     WTF_CSRF_ENABLED = True
-    REDIS_URL = "redis://redis:6379/0"
-    QUEUES = ["default"]
+    REDIS_HOST = "redis"
+    REDIS_PORT = 6379
+    REDIS_CACHE_DB = 0
+    REDIS_RATE_LIMITER_DB = 1
 
 
 class ProductionConfig(Config):

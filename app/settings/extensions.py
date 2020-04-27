@@ -7,7 +7,7 @@ from flask_wtf.csrf import CSRFProtect
 from flask_bcrypt import Bcrypt
 # from flask_session import Session
 from flask_login import LoginManager
-
+print(122222222222222222222)
 db = SQLAlchemy()
 migrate = Migrate()
 csrf = CSRFProtect()

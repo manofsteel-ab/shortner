@@ -8,14 +8,19 @@ services:
       - mysql
     links:
       - mysql
+      - redis
     ports:
       - "8001:80"
-
+    restart: always
   mysql:
       image: mysql/mysql-server:5.7
       environment:
         - MYSQL_ALLOW_EMPTY_PASSWORD=true
         - MYSQL_DATABASE=shortner
         - MYSQL_ROOT_HOST=%
+      restart: always
   redis:
-    image: redis:5.0.7-alpine
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+    restart: always
