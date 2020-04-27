@@ -17,3 +17,5 @@ services:
         - MYSQL_ALLOW_EMPTY_PASSWORD=true
         - MYSQL_DATABASE=shortner
         - MYSQL_ROOT_HOST=%
+  redis:
+    image: redis:5.0.7-alpine

@@ -17,10 +17,12 @@ class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = '<$IjAxMGMwMDU1ZmZjODQyMDMwNTNlZmJhY2VjN2I5NDIwNDFmOGIwMTYi.Xms7Sg.dkuOdBrEVqZcOXiROGfpStRkPNc>'
+    SECRET_KEY = 'a_very_large_random_string'
     SHORT_URL = "http://0.0.0.0:8001/shortner/{}/"
-    WTF_CSRF_ENABLED = True
     BCRYPT_ROUNDS = 4
+    WTF_CSRF_ENABLED = True
+    REDIS_URL = "redis://redis:6379/0"
+    QUEUES = ["default"]
 
 
 class ProductionConfig(Config):
