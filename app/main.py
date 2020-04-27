@@ -12,7 +12,6 @@ from app.settings.custom_response import DefaultResponse
 
 def create_app(config=None, app_name=None):
     """Create an app instance based on the passed params"""
-    print(90909090990)
     if not app_name:
         app_name = Config.APP_NAME
     if not config:
