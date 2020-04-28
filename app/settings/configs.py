@@ -17,7 +17,7 @@ class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = 'a_very_large_random_string'
+    SECRET_KEY = '<$asdhajhdkjahdjahsjkdhajskhdjkashdjkahkjsdhashjdsaj>'
     SHORT_URL = "http://0.0.0.0:8001/shortner/{}/"
     BCRYPT_ROUNDS = 4
     WTF_CSRF_ENABLED = True

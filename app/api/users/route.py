@@ -7,6 +7,7 @@ from app.commons.utils.constants import UserType
 from app.settings.custom_response import DefaultResponse
 from app.settings.extensions import login_manager
 
+
 userBp = Blueprint('users', __name__, url_prefix='/users')
 
 

@@ -1,10 +1,12 @@
+from flask import current_app
 from datetime import datetime
 
 from app.api.imports import Managers
 from app.api.shortner.models.shortner import Shortner
 from app.commons.utils.constants import Error
 from app.commons.utils.encoder import string_encode
-from flask import current_app
+
+from app.commons.services.cache.cache import Cache
 
 
 class ShortnerManager:
@@ -53,8 +55,14 @@ class ShortnerManager:
         """
         Fetch original url using given hash value
         """
+        if not hash_val:
+            raise Exception("BadRequest")
+        cache = Cache().get_instance()
+
+        if cache.get(key=hash_val):
+            return cache.get(key=hash_val)
         mapping = self.model.fetch_by_hash(hash_val).first()
         if mapping:
-            mapping.update(hit_count=mapping.hit_count+1, commit=True)
+            cache.set(key=hash_val, value=mapping.long_url)
             return mapping.long_url
         return None
